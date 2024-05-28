@@ -1,0 +1,56 @@
+<div class="container">
+  <div class="card col-md-6 offset-3 mt-2">
+    <div class="card-header">New Product</div>
+    <div class="card-body">
+      <form [formGroup]="newProductFormGroup" (ngSubmit)="handleSaveProduct()">
+        <div class="mb-3">
+          <label class="form-label" >Product Name: </label>
+          <input type="text" formControlName="name" class="form-control">
+          <span class="text-danger"
+                *ngIf="newProductFormGroup.controls['name'].errors
+                && newProductFormGroup.controls['name'].touched
+                && newProductFormGroup.controls['name'].errors!['required']">
+            Product Name is required
+          </span>
+        </div>
+        <div class="mb-3">
+          <label class="form-label" >Description: </label>
+          <input type="text" formControlName="description" class="form-control">
+          <span class="text-danger"
+                *ngIf="newProductFormGroup.controls['description'].errors
+                && newProductFormGroup.controls['description'].touched
+                && newProductFormGroup.controls['description'].errors!['required']">
+            Description is required
+          </span>
+        </div>
+        <div class="mb-3">
+          <label class="form-label" >Price: </label>
+          <input type="number" formControlName="price" class="form-control">
+          <span class="text-danger"
+                *ngIf="newProductFormGroup.controls['price'].errors
+                && newProductFormGroup.controls['price'].touched
+                && newProductFormGroup.controls['price'].errors!['required']">
+            price is required
+          </span>
+        </div>
+        <div class="mb-3">
+          <label class="form-label" >Quantity: </label>
+          <input type="number" formControlName="quantity" class="form-control">
+          <span class="text-danger"
+                *ngIf="newProductFormGroup.controls['quantity'].errors
+                && newProductFormGroup.controls['quantity'].touched
+                && newProductFormGroup.controls['quantity'].errors!['required']">
+            quantity is required
+          </span>
+        </div>
+        <div class="mb-3">
+          <label class="form-label" >Image: </label>
+          <input type="file" (change)="onFileSelected($event)" class="form-control">
+          <!-- Image preview -->
+          <img *ngIf="imagePreview" [src]="imagePreview" alt="Selected Image" class="mt-2 img-thumbnail" style="max-width: 200px;">
+        </div>
+        <button [disabled]="newProductFormGroup.invalid" class="btn btn-info" >Save</button>
+      </form>
+    </div>
+  </div>
+</div>

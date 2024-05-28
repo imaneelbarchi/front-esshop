@@ -1,0 +1,53 @@
+<div class="p-3">
+
+  <div class="card">
+    <div class="card-header">Products List</div>
+    <div class="card-body">
+      <div class="mb-3"> <!-- Add margin bottom here -->
+        <input class="p-1" type="text" placeholder="Search" [(ngModel)]="searchQuery" (input)="searchProducts()" >
+      </div>
+      <div class="row">
+        <div class="col-md-6" *ngFor="let product of products">
+          <div class="card mb-3">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img [src]="'data:image/png;base64,' + product.image.data" alt="{{ product.name }}" class="img-fluid rounded-start" style="max-height: 200px;">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title">{{ product.name }}</h5>
+                  <p class="card-text">{{ product.description }}</p>
+                  <p class="card-text"><small class="text-muted">Price: {{ product.price }} DH</small></p>
+                  <p class="card-text"><small class="text-muted">Available {{ product.quantity }} </small></p>
+                  <div class="btn-group" role="group">
+                    <button *ngIf="keycloakService.getUserRoles().includes('ADMIN')" type="button" class="btn btn-outline-warning" (click)="handleEdit(product)">
+                      <i class="bi bi-pencil"></i>
+                    </button>
+                    <button type="button" class="btn btn-outline-warning" (click)="viewProduct(product)">
+                      <i class="bi bi-eye"></i>
+                    </button>
+                    <button type="button" class="btn btn-outline-warning" (click)="addToCart(product.id)">
+                      <i class="bi bi-cart-plus"></i>
+                    </button>
+                    <button *ngIf="keycloakService.getUserRoles().includes('ADMIN')" type="button" class="btn btn-outline-danger" (click)="handleDelete(product)">
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ul class="nav nav-pills">
+        <li *ngFor="let page of totalPagesArray; let i = index">
+          <a [ngClass]="currentPage === i ? 'btn-warning' : 'btn-outline-warning'"
+             (click)="goToPage(i)"
+             class="btn ms-1 mt-1">
+            {{ i + 1 }}
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
